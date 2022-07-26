@@ -6,10 +6,13 @@ import { badRequestHandler, genericErrorHandler, notFoundHandler } from "./error
 
 const server = express()
 const port = 3001
+const corsOption = {
+  origin : process.env.FE_DEV_URL
+}
 
 // ******************************************* MIDDLEWARES *************************************
 
-server.use(cors())
+server.use(cors(corsOption))
 server.use(express.json())
 
 // ****************************************** ENDPOINTS ****************************************
