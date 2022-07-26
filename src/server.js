@@ -5,7 +5,7 @@ import productsRouter from "./api/products/index.js"
 import { badRequestHandler, genericErrorHandler, notFoundHandler } from "./errorHandlers.js"
 
 const server = express()
-const port = 3001
+const port = process.env.PORT || 3001
 const corsOption = {
   origin : process.env.FE_DEV_URL
 }
