@@ -1,3 +1,4 @@
+import { createReadStream } from "fs"
 import fs from "fs-extra"
 import { dirname, join } from "path"
 import { fileURLToPath } from "url"
@@ -12,3 +13,5 @@ export const writeProducts = productsArray => writeJSON(productsJSONPath, produc
 
 export const saveProductsImages = (fileName, file) => writeFile(join(publicProductsFolderPath, fileName), file)
 export const deleteProductsImages = imageUrl => unlink(join(publicProductsFolderPath, "../../", imageUrl))
+
+export const getBooksForStream = () => createReadStream(productsJSONPath)

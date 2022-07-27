@@ -3,6 +3,7 @@ import listEndpoints from "express-list-endpoints"
 import cors from "cors"
 import productsRouter from "./api/products/index.js"
 import { badRequestHandler, genericErrorHandler, notFoundHandler } from "./errorHandlers.js"
+import filesRouter from "./api/files/index.js"
 
 const server = express()
 const port = process.env.PORT || 3001
@@ -18,6 +19,7 @@ server.use(express.json())
 // ****************************************** ENDPOINTS ****************************************
 
 server.use("/products", productsRouter)
+server.use("/files",filesRouter)
 
 // ***************************************** ERROR HANDLERS ************************************
 server.use(badRequestHandler)
