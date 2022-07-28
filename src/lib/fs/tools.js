@@ -3,6 +3,7 @@ import fs from "fs-extra"
 import { dirname, join } from "path"
 import { fileURLToPath } from "url"
 import PdfPrinter from "pdfmake"
+import sgMail from "@sendgrid/mail"
 
 const { readJSON, writeJSON, writeFile, unlink } = fs
 
@@ -56,4 +57,18 @@ export const getProductsPdf = () => {
       pdfDoc.end();
       
       return pdfDoc
+}
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+export const sendEmailToUser = async (address) =>{
+
+    const msg = {
+        to: address,
+        from : "farshadota@gmail.com",
+        subject : "Random email for you duuuuuuude",
+        text : "hello its me how are you",
+        html : "<h1>ITS ME BRO ANSWER</h1>"
+    }
+    await sgMail.send(msg)
+
 }

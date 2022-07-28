@@ -4,7 +4,7 @@ import multer from "multer"
 import { extname } from "path"
 import { findProductById, findProductByIdAndDelete, findProductByIdAndUpdate, findProducts, saveNewProduct } from "../../lib/db/products.js"
 import { findReviewById, findReviewByIdAndDelete, findReviewByIdAndUpdate, saveNewReview } from "../../lib/db/reviews.js"
-import { saveProductsImages } from "../../lib/fs/tools.js"
+import { saveProductsImages, sendEmailToUser } from "../../lib/fs/tools.js"
 import { checksProductsSchema, checkValidationResult } from "./productsValidation.js"
 
 const productsRouter = express.Router()
@@ -132,6 +132,19 @@ productsRouter.delete("/:productId/reviews/:reviewId", async (req, res, next) =>
   try {
     await findReviewByIdAndDelete(req.params.productId, req.params.reviewId)
     res.status(204).send()
+  } catch (error) {
+    next(error)
+  }
+})
+productsRouter.post("/register",async (req,res,next) =>{
+  try {
+    
+    const { email } =  req.body
+
+    await sendEmailToUser(email)
+    
+    res.send({ message: "User email sent!"})
+
   } catch (error) {
     next(error)
   }
